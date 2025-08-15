@@ -1,190 +1,157 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<!-- Leaflet CSS -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-
-<!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KTV_VOL1 Karaoke</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <!-- EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+      emailjs.init('PPhs_HmCzX4Vxbbun');
+    </script>
 </head>
 <body>
 
-    <!-- HEADER với ảnh nền -->
-    <header class="header">
-        <div class="header-content">
-            <h1>Karaoke KTV_VOL1 </h1>
-            <p>20 Phố Nguyễn Lân, Thanh Xuân, Hà Nội</p>
-              <button class="open-booking-btn" onclick="openBooking()">Đặt Phòng Ngay</button>
-             <div id="bookingModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeBooking()">&times;</span>
-    <h3>Đặt Phòng Karaoke</h3>
-    <form id="bookingForm" onsubmit="submitBooking(event)">
-      <label>Họ và tên:</label>
-      <input type="text" id="bk-name" required>
+<!-- HEADER -->
+<header class="header">
+    <div class="header-content">
+        <h1>Karaoke KTV_VOL1</h1>
+        <p>20 Phố Nguyễn Lân, Thanh Xuân, Hà Nội</p>
+        <button class="open-booking-btn" onclick="openBooking()">Đặt Phòng Ngay</button>
 
-      <label>Số điện thoại:</label>
-      <input type="tel" id="bk-phone" required>
+        <!-- MODAL ĐẶT PHÒNG -->
+        <div id="bookingModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeBooking()">&times;</span>
+                <h3>Đặt Phòng Karaoke</h3>
+                <form id="bookingForm" onsubmit="submitBooking(event)">
+                    <label>Họ và tên:</label>
+                    <input type="text" id="bk-name" required>
 
-      <label>Ngày đặt:</label>
-      <input type="date" id="bk-date" required>
+                    <label>Số điện thoại:</label>
+                    <input type="tel" id="bk-phone" required>
 
-      <label>Giờ đặt:</label>
-      <input type="time" id="bk-time" required>
+                    <label>Ngày đặt:</label>
+                    <input type="date" id="bk-date" required>
 
-      <label>Số lượng người:</label>
-      <input type="number" id="bk-number" min="1" required>
+                    <label>Giờ đặt:</label>
+                    <input type="time" id="bk-time" required>
 
-      <button type="submit" >Xác nhận</button>
+                    <label>Số lượng người:</label>
+                    <input type="number" id="bk-number" min="1" required>
 
-
-    </form>
-  </div>
-</div> 
+                    <button type="submit">Xác nhận</button>
+                </form>
+            </div>
         </div>
+
+        <!-- CUSTOM ALERT -->
         <div id="customAlert" class="custom-alert">
-  <span id="alertMessage"></span>
-</div>
-    </header>
-
-    <!-- GIỚI THIỆU + SLIDESHOW -->
-    <section class="about">
-        <h2>Đến với chúng tôi</h2>
-        <div class="slideshow-container">
-
-            <!-- Ảnh slideshow -->
-            <div class="mySlides fade">
-                <img src="phong3.jpg" alt="Ảnh 1">
-                <div class="slide-title">Karaoke KTV_VOl1 </div>
-            </div>
-
-            <div class="mySlides fade">
-                <img src="phong4.jpg" alt="Ảnh 2">
-                <div class="slide-title">Âm thanh đỉnh cao</div>
-            </div>
-             <div class="mySlides fade">
-                <img src="phong6.jpg" alt="Ảnh 2">
-                <div class="slide-title">Không gian sang trọng</div>
-            </div>
-            <div class="mySlides fade">
-                <img src="phong5.jpg" alt="Ảnh 3">
-                <div class="slide-title">Phòng hát chất lượng cao</div>
-            </div>
-           <div class="mySlides fade">
-                <img src="phong2.jpg" alt="Ảnh 3">
-                <div class="slide-title">Phục vụ tận tình, chu đáo </div>
-            </div>
+            <span id="alertMessage"></span>
+            <button onclick="closeAlert()">Đóng</button>
         </div>
-        <h2> Rất hân hạnh được đón tiếp và phục vụ quý khách hàng </h2>
-    </section>
+    </div>
+</header>
 
-    <!-- NÚT CỐ ĐỊNH GỌI & ZALO -->
-    <a href="tel:0396789058" class="fixed-call">📞</a>
-    <a href="https://zalo.me/0396789058" class="fixed-zalo" >
-        <img src="zalo.png" alt="Zalo">
-    </a>
+<!-- ABOUT + SLIDESHOW -->
+<section class="about">
+    <h2>Đến với chúng tôi</h2>
+    <div class="slideshow-container">
+        <div class="mySlides fade">
+            <img src="phong3.jpg" alt="Ảnh 1">
+            <div class="slide-title">Karaoke KTV_VOL1</div>
+        </div>
+        <div class="mySlides fade">
+            <img src="phong4.jpg" alt="Ảnh 2">
+            <div class="slide-title">Âm thanh đỉnh cao</div>
+        </div>
+        <div class="mySlides fade">
+            <img src="phong6.jpg" alt="Ảnh 3">
+            <div class="slide-title">Không gian sang trọng</div>
+        </div>
+        <div class="mySlides fade">
+            <img src="phong5.jpg" alt="Ảnh 4">
+            <div class="slide-title">Phòng hát chất lượng cao</div>
+        </div>
+        <div class="mySlides fade">
+            <img src="phong2.jpg" alt="Ảnh 5">
+            <div class="slide-title">Phục vụ tận tình, chu đáo</div>
+        </div>
+    </div>
+</section>
 
-    <script>
-        let slideIndex = 0;
-        showSlides();
+<!-- MAP -->
+<section class="map-section">
+    <h2>Vị trí Karaoke KTV_VOL1</h2>
+    <div id="map"></div>
+</section>
 
-        function showSlides() {
-            let slides = document.getElementsByClassName("mySlides");
-            for (let i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            slideIndex++;
-            if (slideIndex > slides.length) { slideIndex = 1 }
-            slides[slideIndex - 1].style.display = "block";
-            setTimeout(showSlides, 3000);
-        }
-    </script>
+<!-- NÚT GỌI & ZALO -->
+<a href="tel:0396789058" class="fixed-call">📞</a>
+<a href="https://zalo.me/0396789058" class="fixed-zalo">
+    <img src="zalo.png" alt="Zalo">
+</a>
+
+<!-- JS -->
 <script>
-function openBooking() {
-    document.getElementById("bookingModal").style.display = "block";
-}
+    // SLIDESHOW
+    let slideIndex = 0;
+    function showSlides() {
+        let slides = document.getElementsByClassName("mySlides");
+        for (let i=0; i<slides.length; i++) slides[i].style.display = "none";
+        slideIndex++;
+        if(slideIndex > slides.length) slideIndex = 1;
+        slides[slideIndex-1].style.display = "block";
+        setTimeout(showSlides, 3000);
+    }
+    showSlides();
 
-function closeBooking() {
-    document.getElementById("bookingModal").style.display = "none";
-}
+    // MODAL
+    function openBooking(){ document.getElementById("bookingModal").style.display="block"; }
+    function closeBooking(){ document.getElementById("bookingModal").style.display="none"; }
+    window.onclick = function(event){
+        if(event.target==document.getElementById("bookingModal")) closeBooking();
+    }
 
-// Đóng khi click ra ngoài modal
-window.onclick = function(event) {
-    if (event.target == document.getElementById("bookingModal")) {
+    // EMAILJS + CUSTOM ALERT
+    function submitBooking(e){
+        e.preventDefault();
+        const data = {
+            name: document.getElementById('bk-name').value,
+            phone: document.getElementById('bk-phone').value,
+            date: document.getElementById('bk-date').value,
+            time: document.getElementById('bk-time').value,
+            number: document.getElementById('bk-number').value
+        };
+        emailjs.send('service_ktv1','template_1ykwtlh', data)
+        .then(res => showAlert('Đặt phòng thành công! Thông tin đã gửi email.'))
+        .catch(err => showAlert('Gửi thất bại, vui lòng thử lại.'));
         closeBooking();
     }
-}
 
-function submitBooking(e){
-  e.preventDefault();
-  const data = {
-    name: document.getElementById('bk-name').value,
-    phone: document.getElementById('bk-phone').value,
-    date: document.getElementById('bk-date').value,
-    time: document.getElementById('bk-time').value,
-    number: document.getElementById('bk-number').value
-  };
-  console.log('Dữ liệu form:', data);
+    function showAlert(msg){
+        const alertBox=document.getElementById('customAlert');
+        document.getElementById('alertMessage').innerText = msg;
+        alertBox.style.display = 'block';
+        setTimeout(()=> alertBox.style.display='none',4000);
+    }
+    function closeAlert(){ document.getElementById('customAlert').style.display='none'; }
 
-  emailjs.send('service_ktv1', 'template_1ykwtlh', data)
-    .then(function(response){
-      console.log('EmailJS response:', response);
-     showAlert('Đặt phòng thành công! Thông tin đã gửi email.');
-    })
-    .catch(function(error){
-      console.error('EmailJS error:', error);
-      showAlert('Đặt phòng thành công! Thông tin đã gửi email.');
-    });
-}
-
- 
-
+    // LEAFLET MAP
+    const lat=20.9945, lng=105.8140;
+    const map = L.map('map').setView([lat,lng],16);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19}).addTo(map);
+    L.marker([lat,lng]).addTo(map)
+        .bindPopup('KTV_VOL1 Karaoke<br>20 Nguyễn Lân, Thanh Xuân, Hà Nội')
+        .openPopup();
 </script>
-<script>
-function showAlert(message) {
-    const alertBox = document.getElementById('customAlert');
-    document.getElementById('alertMessage').innerText = message;
-    alertBox.style.display = 'block';
-}
-
-function closeAlert() {
-    document.getElementById('customAlert').style.display = 'none';
-}
-</script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-<script>
-   emailjs.init('PPhs_HmCzX4Vxbbun');
-</script>
-<section class="map-section">
-  <h2>Vị trí Karaoke KTV_VOL1</h2>
-  <div id="map" style="height: 400px;"></div>
-</section>
-<script>
-    // Tọa độ của quán
-const lat = 20.9945;   // Thay bằng tọa độ thật
-const lng = 105.8140;  // Thay bằng tọa độ thật
-
-// Tạo bản đồ
-const map = L.map('map').setView([lat, lng], 16);
-
-// Thêm layer OpenStreetMap
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-}).addTo(map);
-
-// Thêm marker
-L.marker([lat, lng]).addTo(map)
-    .bindPopup('KTV_VOL1 Karaoke<br>20 Nguyễn Lân, Thanh Xuân, Hà Nội')
-    .openPopup();
-
-</script>
-
-
 </body>
 </html>
