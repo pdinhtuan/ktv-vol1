@@ -96,12 +96,17 @@ h2{color:#f8c302;margin-bottom:15px;text-align:center;}
   text-decoration: none;
   cursor: pointer;
   color: #fcfcfc;
-  gap: 10px;
-  margin: 15px;
-  margin-left: 135px;
+  max-width: 250px;
+  margin: 15px auto;
 }
 
-
+@media(max-with:768px){
+  .fixed-pickup {
+    width: 80%;            /* nút rộng hơn trên mobile */
+    font-size: 16px;       /* chữ to hơn chút */
+    padding: 14px;
+  }
+}
 
 
 
